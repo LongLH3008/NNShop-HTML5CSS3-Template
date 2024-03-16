@@ -7,7 +7,7 @@ export default defineConfig({
 		rollupOptions: {
 			input: {
 				main: resolve(__dirname, "index.html"),
-				pay: resolve(__dirname, "./pages/pay.html"),
+				pay: resolve(__dirname, "./src/pages/pay.html"),
 			},
 		},
 	},
