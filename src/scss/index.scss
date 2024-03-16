@@ -17,6 +17,24 @@ $max-width-screen: 100%;
 	color: white;
 }
 
+$breakpoints: (
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+);
+
+@mixin breakpoint($width) {
+	@if map-has-key($breakpoints, $width) {
+		$value: map-get($breakpoints, $width);
+		@media (min-width: $width) {
+			@content;
+		}
+	} @else {
+		@error 'No breakpoint found for #{$width}';
+	}
+}
+
 @mixin flex_row($justify, $align, $wrap) {
 	display: flex;
 	justify-content: $justify;
@@ -51,7 +69,7 @@ a {
 
 .container {
 	padding: 0 5.6%;
-	max-width: $max-width-screen;
+	width: $max-width-screen;
 }
 
 // ----------- Reuse Component
@@ -177,12 +195,13 @@ a {
 	&__row {
 		@include flex_row(space-between, center, none);
 		margin-bottom: 35px;
+		gap: 2%;
 	}
 	&__item {
-		max-width: 285px;
+		// width: 30%;
 		height: 446px;
-		object-fit: cover;
 		position: relative;
+		overflow: hidden;
 	}
 	&__status {
 		@include flex_row(center, center, nowrap);
@@ -199,8 +218,8 @@ a {
 	&__feature {
 		z-index: -1;
 		opacity: 0;
-		width: 285px;
 		height: 446px;
+		width: 100%;
 		position: absolute;
 		padding: 15%;
 		top: 0;
@@ -257,7 +276,7 @@ a {
 		opacity: 1;
 	}
 	&__imageItem {
-		@include containimage(285px, 301px, none);
+		@include containimage(100%, 301px, none);
 	}
 	&__infoItem {
 		background-color: #f4f5f7;
